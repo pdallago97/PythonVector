@@ -41,39 +41,26 @@ Today we will explore a variety of Python packages for vector data handling:
 - Be able to plot spatial vector data with Matplotlib
 
 ## Setting up the Python Environment
-
-Make a directory structure for this tutorial:
+Open Positron and create a new directory for this tutorial using pixi:
 
 ```{r, eval=FALSE,engine='bash'}
 cd ~/Documents/
-mkdir PythonVector #or give the directory a name to your liking
-cd ./PythonVector
-mkdir data
-mkdir output
+pixi init PythonVector #or give the directory a name to your liking
 ```
 
-The conda environment we are using today contains more (and larger) packages than yesterday, but the process we use to create and activate it is the same. Create a text file, (re)name it (to) `vector.yaml`, and copy the following content into the file:
+The environment we are using today contains more (and larger) packages than yesterday, but the process we use to create and activate it is the same. Add the following packages into the environment:
 
 ```
-name: vector
-dependencies:
-  - matplotlib
-  - spyder
-  - gdal
-  - shapely
-  - geopandas=>1.0
-  - owslib
-  - osmnx
-  - contextily
+pixi add matplotlib spyder gdal shapely geopandas>=1.0 owslib osmnx contextily
 ```
 
-Now, create the environment with:
+Activate the shell:
 
-```{r, eval=FALSE,engine='bash'}
-mamba env create --file vector.yaml
+```
+pixi shell
 ```
 
-Activate the environment, open Spyder, create a script in the root directory and start coding.
+Then create a script in the root directory and start coding.
 
 # Vector Geometries and Python
 
