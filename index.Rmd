@@ -428,7 +428,7 @@ newBuildingsGDF = newBuildingsGDF.to_crs(epsg=3857)
 
 # Plot with 50% transparency
 ax = newBuildingsGDF.plot(figsize=(10, 10), alpha=0.5, edgecolor='k')
-ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik, zoom=17)
+ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik, zoom=17) #This does not work: Access blocked 403
 ax.set_axis_off()
 ```
 
@@ -545,17 +545,21 @@ import osmnx as ox
 
 # Using a geocoder to get the extent
 city = ox.geocoder.geocode_to_gdf('Wageningen, Netherlands')
-ox.plot.plot_footprints(ox.project_gdf(city), color='lightblue', bgcolor='#FFFFFF', 
-                        alpha=0.8, edge_color='grey', edge_linewidth=2)
+city.to_crs(epsg=28992).plot(
+    color = 'lightblue',
+    edgecolor = 'grey',
+    linewidth = 0.5,
+    alpha = 0.8
+)
 # Get bike network and create graph
 wageningenRoadsGraph = ox.graph.graph_from_place('Wageningen, Netherlands', network_type='bike')
 
 # Plot and save
 ox.plot.plot_graph(wageningenRoadsGraph, figsize=(10, 10), node_size=2)
-ox.io.save_graph_shapefile(G=wageningenRoadsGraph, filepath='data/OSMnetwork_Wageningen.shp')
+gdf_nodes, gdf_edges = ox.graph_to_gdfs(G=wageningenRoadsGraph)
+gdf_edges.to_file('./output/OSMnetwork_Wageningen.shp', driver='ESRI Shapefile')
 
 # Metadata
-gdf_nodes, gdf_edges = ox.graph_to_gdfs(G=wageningenRoadsGraph)
 print(gdf_nodes.info())
 print(gdf_edges.info())
 ```
@@ -593,6 +597,8 @@ There are multiple options to visualize your geodata: GIS software (QGIS), web m
 Folium uses leaflet on the backend to make web maps, easily visualized on a webpage. [Leaflet](https://leafletjs.com/) is an open-source JavaScript library for mobile-friendly interactive maps. Folium handles GeoDataFrames or JSON files as input for the interactive map. The Python script below makes a `.html` file in your working directory, which you can open in a [web browser](campusMap.html):
 
 ```{Python, eval=FALSE}
+
+### PROBLEMS WITH BASEMAP: ACCESS BLOCKED 403r
 import folium
 
 # Initialize the map
