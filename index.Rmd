@@ -594,12 +594,10 @@ There are multiple options to visualize your geodata: GIS software (QGIS), web m
 Folium uses leaflet on the backend to make web maps, easily visualized on a webpage. [Leaflet](https://leafletjs.com/) is an open-source JavaScript library for mobile-friendly interactive maps. Folium handles GeoDataFrames or JSON files as input for the interactive map. The Python script below makes a `.html` file in your working directory, which you can open in a [web browser](campusMap.html):
 
 ```{Python, eval=FALSE}
-
-### PROBLEMS WITH BASEMAP: ACCESS BLOCKED 403r
 import folium
 
 # Initialize the map with satellite basemap
-campusMap = folium.Map([51.98527485, 5.66370505205543], tiles = "https://server.arcgisonline.com/ArcGIS/rest/services/""World_Imagery/MapServer/tile/{z}/{y}/{x}", attr = "Tiles © ESRI" zoom_start=17)
+campusMap = folium.Map([51.98527485, 5.66370505205543], tiles = "https://server.arcgisonline.com/ArcGIS/rest/services/""World_Imagery/MapServer/tile/{z}/{y}/{x}", attr = "Tiles © ESRI", zoom_start=17)
 
 # Re-project
 buildingsGDF = buildingsGDF.to_crs(4326)
