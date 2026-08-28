@@ -599,9 +599,9 @@ Folium uses leaflet on the backend to make web maps, easily visualized on a webp
 import folium
 
 # Load Basemap
-basemap = folium.TileLayer(tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-                            attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                            referrer_policy="strict-origin")
+basemap = folium.TileLayer(tiles="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+                            attr='voyager',
+                            referrer_policy="voyager")
 
 # Initialize the map
 campusMap = folium.Map([51.98527485, 5.66370505205543], tiles = basemap, zoom_start=17)
