@@ -428,7 +428,8 @@ newBuildingsGDF = newBuildingsGDF.to_crs(epsg=3857)
 
 # Plot with 50% transparency
 ax = newBuildingsGDF.plot(figsize=(10, 10), alpha=0.5, edgecolor='k')
-ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik, zoom=17) #This does not work: Access blocked 403
+#Load basemap
+ctx.add_basemap(ax, zoom=17) #Basemap can be adjusted using the 'source' argument of add_basemap()
 ax.set_axis_off()
 ```
 
@@ -545,12 +546,8 @@ import osmnx as ox
 
 # Using a geocoder to get the extent
 city = ox.geocoder.geocode_to_gdf('Wageningen, Netherlands')
-city.to_crs(epsg=28992).plot(
-    color = 'lightblue',
-    edgecolor = 'grey',
-    linewidth = 0.5,
-    alpha = 0.8
-)
+city.plot(color = 'lightblue', edgecolor = 'grey', linewidth = 0.5, alpha = 0.8)
+
 # Get bike network and create graph
 wageningenRoadsGraph = ox.graph.graph_from_place('Wageningen, Netherlands', network_type='bike')
 
@@ -601,8 +598,13 @@ Folium uses leaflet on the backend to make web maps, easily visualized on a webp
 ### PROBLEMS WITH BASEMAP: ACCESS BLOCKED 403r
 import folium
 
+# Load Basemap
+basemap = folium.TileLayer(tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                            attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            referrer_policy="strict-origin")
+
 # Initialize the map
-campusMap = folium.Map([51.98527485, 5.66370505205543], zoom_start=17)
+campusMap = folium.Map([51.98527485, 5.66370505205543], tiles = basemap, zoom_start=17)
 
 # Re-project
 buildingsGDF = buildingsGDF.to_crs(4326)
