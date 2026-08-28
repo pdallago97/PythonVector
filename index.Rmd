@@ -598,13 +598,8 @@ Folium uses leaflet on the backend to make web maps, easily visualized on a webp
 ### PROBLEMS WITH BASEMAP: ACCESS BLOCKED 403r
 import folium
 
-# Load Basemap
-basemap = folium.TileLayer(tiles="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-                            attr='voyager',
-                            referrer_policy="voyager")
-
-# Initialize the map
-campusMap = folium.Map([51.98527485, 5.66370505205543], tiles = basemap, zoom_start=17)
+# Initialize the map with satellite basemap
+campusMap = folium.Map([51.98527485, 5.66370505205543], tiles = "https://server.arcgisonline.com/ArcGIS/rest/services/""World_Imagery/MapServer/tile/{z}/{y}/{x}", attr = "Tiles © ESRI" zoom_start=17)
 
 # Re-project
 buildingsGDF = buildingsGDF.to_crs(4326)
